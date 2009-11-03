@@ -1,0 +1,5 @@
+#designated_contacts {list-style: none; padding-left: 0px;}
+#designated_contacts span {display:block;}
+#designated_contacts li {padding-bottom: 10px;}
+span.name {}
+span.last-login {font-style: italic; font-size: smaller;}

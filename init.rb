@@ -1,5 +1,7 @@
 require 'redmine'
 
+require 'add_user/hooks/layout_hooks'
+
 Redmine::Plugin.register :redmine_add_user do
   author 'Eric Davis'
   url 'https://projects.littlestreamsoftware.com/projects'
