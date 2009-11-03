@@ -1,3 +1,5 @@
 # English strings go here for Rails i18n
 en:
-  my_label: "My label"
+  add_user_text_settings_configuration: "Configuration"
+  add_user_settings_help: ""
+  add_user_missing_roles: "Missing Roles.  Please create at least one first."
