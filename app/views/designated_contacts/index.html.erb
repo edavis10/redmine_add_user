@@ -1,0 +1,18 @@
+<h1>Listing designated_contacts</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @designated_contacts.each do |designated_contact| %>
+  <tr>
+    <td><%= link_to 'Show', designated_contact %></td>
+    <td><%= link_to 'Edit', edit_designated_contact_path(designated_contact) %></td>
+    <td><%= link_to 'Destroy', designated_contact, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New designated_contact', new_designated_contact_path %>
