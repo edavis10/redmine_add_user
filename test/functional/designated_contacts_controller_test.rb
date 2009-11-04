@@ -1,45 +1,29 @@
 require 'test_helper'
 
 class DesignatedContactsControllerTest < ActionController::TestCase
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:designated_contacts)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create designated_contact" do
-    assert_difference('DesignatedContact.count') do
-      post :create, :designated_contact => { }
+  context "on GET to :new" do
+    setup do
+      @project = Project.generate!
+      get :new
     end
 
-    assert_redirected_to designated_contact_path(assigns(:designated_contact))
+    should_respond_with :success
+    should_assign_to :user
+    should_render_template :new
   end
 
-  test "should show designated_contact" do
-    get :show, :id => designated_contacts(:one).to_param
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, :id => designated_contacts(:one).to_param
-    assert_response :success
-  end
-
-  test "should update designated_contact" do
-    put :update, :id => designated_contacts(:one).to_param, :designated_contact => { }
-    assert_redirected_to designated_contact_path(assigns(:designated_contact))
-  end
-
-  test "should destroy designated_contact" do
-    assert_difference('DesignatedContact.count', -1) do
-      delete :destroy, :id => designated_contacts(:one).to_param
+  context "on POST to :create" do
+    setup do
+      @project = Project.generate!
+      post :create, :user => {}
     end
 
-    assert_redirected_to designated_contacts_path
+    should_assign_to :user
+    should_redirect_to("the project overview") { "/projects/#{@project}" }
+    should_set_the_flash_to(/Successful creation/i)
+
+    should "create a user"
+    should "add the new user as a Member"
+    should "email the user their account information"
   end
 end

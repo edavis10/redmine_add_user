@@ -18,3 +18,10 @@ class Test::Unit::TestCase
   end
 end
 
+# Shoulda
+class Test::Unit::TestCase
+  def self.should_render_404
+    should_respond_with :not_found
+    should_render_template 'common/404'
+  end
+end
