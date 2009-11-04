@@ -18,6 +18,10 @@ class AddUser::Hooks::LayoutHooksTest < ActionController::TestCase
   end
 
   context "#view_layouts_base_sidebar" do
+    setup do
+      setup_plugin_configuration
+    end
+
     context "with no project" do
       should 'render nothing' do
         assert hook.blank?
@@ -37,6 +41,13 @@ class AddUser::Hooks::LayoutHooksTest < ActionController::TestCase
     context "with a project with an active designated_contacts module" do
       setup do
         @project = Project.generate!
+        # Project members listed on the sidebar
+        2.times do
+          user = User.generate_with_protected!
+          @project.members << Member.new(:project => @project, :user => user, :role_ids => @configured_roles.collect(&:id))
+        end
+        
+        # Other members
         3.times do
           user = User.generate_with_protected!
           @project.members << Member.new(:project => @project, :user => user, :roles => [Role.generate!])
@@ -49,10 +60,10 @@ class AddUser::Hooks::LayoutHooksTest < ActionController::TestCase
         assert_select 'h3', 'Designated Contacts'
       end
 
-      should "render the list of current members" do
+      should "render the list of current members with the configured add_user role" do
         @response.body = hook
         assert_select 'ul' do
-          assert_select 'li', :count => 3 do
+          assert_select 'li', :count => 2 do
             assert_select 'span.name' do
               assert_select 'a'
             end
