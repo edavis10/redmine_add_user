@@ -1,10 +1,15 @@
 require 'test_helper'
 
 class DesignatedContactsControllerTest < ActionController::TestCase
+  context "routing" do
+    should_route :get, "/projects/testingroutes/designated_contacts/new", { :action => :new, :project_id => 'testingroutes' }
+    should_route :post, "/projects/testingroutes/designated_contacts", { :action => :create, :project_id => 'testingroutes' }
+  end
+
   context "on GET to :new" do
     setup do
       @project = Project.generate!
-      get :new
+      get :new, :project_id => @project
     end
 
     should_respond_with :success
@@ -15,7 +20,7 @@ class DesignatedContactsControllerTest < ActionController::TestCase
   context "on POST to :create" do
     setup do
       @project = Project.generate!
-      post :create, :user => {}
+      post :create, :user => {}, :project_id => @project
     end
 
     should_assign_to :user

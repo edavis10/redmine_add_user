@@ -1,6 +1,6 @@
 class DesignatedContactsController < ApplicationController
-  # GET /designated_contacts/new
-  # GET /designated_contacts/new.xml
+  # GET /projects/:project_id/designated_contacts/new
+  # GET /projects/:project_id/designated_contacts/new.xml
   def new
     @user = User.new
 
@@ -10,8 +10,8 @@ class DesignatedContactsController < ApplicationController
     end
   end
 
-  # POST /designated_contacts
-  # POST /designated_contacts.xml
+  # POST /projects/:project_id/designated_contacts
+  # POST /projects/:project_id/designated_contacts.xml
   def create
     @user = User.new(params[:designated_contact])
 
