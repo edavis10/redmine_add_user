@@ -18,6 +18,6 @@ Redmine::Plugin.register :redmine_add_user do
              }})
 
   project_module :designated_contacts do
-    permission :add_user, {}
+    permission :add_user, {:designated_contacts => [:new, :create]}
   end
 end

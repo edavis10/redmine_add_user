@@ -6,9 +6,15 @@ class DesignatedContactsControllerTest < ActionController::TestCase
     should_route :post, "/projects/testingroutes/designated_contacts", { :action => :create, :project_id => 'testingroutes' }
   end
 
+  should_have_before_filter :find_project
+  should_have_before_filter :authorize
+
   context "on GET to :new" do
     setup do
+      setup_anonymous_role
       @project = Project.generate!
+      generate_user_and_login_for_project(@project)
+
       get :new, :project_id => @project
     end
 
@@ -19,7 +25,10 @@ class DesignatedContactsControllerTest < ActionController::TestCase
 
   context "on POST to :create" do
     setup do
+      setup_anonymous_role
       @project = Project.generate!
+      generate_user_and_login_for_project(@project)
+
       post :create, :user => {}, :project_id => @project
     end
 

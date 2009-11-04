@@ -1,4 +1,7 @@
 class DesignatedContactsController < ApplicationController
+  before_filter :find_project
+  before_filter :authorize
+  
   # GET /projects/:project_id/designated_contacts/new
   # GET /projects/:project_id/designated_contacts/new.xml
   def new
@@ -25,5 +28,13 @@ class DesignatedContactsController < ApplicationController
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  private
+  
+  def find_project
+    @project = Project.find(params[:project_id])
+  rescue ActiveRecord::RecordNotFound
+    render_404
   end
 end
