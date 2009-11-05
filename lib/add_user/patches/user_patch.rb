@@ -20,6 +20,7 @@ module AddUser
 
           if Setting.plugin_redmine_add_user['roles']
             u.members << Member.new(:project => project,
+                                    :principal => u,
                                     :roles => Role.find_all_by_id(Setting.plugin_redmine_add_user['roles']))
           end
           u
