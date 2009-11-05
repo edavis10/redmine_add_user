@@ -30,6 +30,14 @@ class AddUser::Patches::UserPatchTest < ActiveSupport::TestCase
       assert_equal 'abe.gabby@gmail.com', user.login
     end
 
+    should "trim the login to fit in 30 characters" do
+      user = User.new_designated_contact(@project, valid_user_attributes.merge({:mail => 'abe.gabby@areallylongdomainname.com'}))
+
+      assert_equal 'abe.gabby@areallylongdomainnam', user.login
+      assert user.valid?, user.errors.full_messages
+
+    end
+
     should "set the password to a secure random value" do
       user = User.new_designated_contact(@project, valid_user_attributes)
 

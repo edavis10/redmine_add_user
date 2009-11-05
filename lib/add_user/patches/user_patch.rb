@@ -13,7 +13,7 @@ module AddUser
       module ClassMethods
         def new_designated_contact(project, user_attributes)
           u = new(user_attributes)
-          u.login = u.mail
+          u.login = u.mail.slice(0,30)
 
           u.password = ActiveSupport::SecureRandom.hex(10)
           u.password_confirmation = u.password
