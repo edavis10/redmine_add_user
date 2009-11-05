@@ -22,6 +22,11 @@ class Test::Unit::TestCase
     @anon_role.update_attribute(:builtin, Role::BUILTIN_ANONYMOUS)
   end
 
+  def setup_non_member_role
+    @non_member_role = Role.generate!
+    @non_member_role.update_attribute(:builtin, Role::BUILTIN_NON_MEMBER)
+  end
+
   def generate_user_and_login_for_project(project, user_attributes={})
     @user = User.generate_with_protected!(user_attributes)
     @role = Role.generate!(:permissions => Redmine::AccessControl.permissions.collect(&:name))

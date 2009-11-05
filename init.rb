@@ -2,6 +2,19 @@ require 'redmine'
 
 require 'add_user/hooks/layout_hooks'
 
+# Patches to the Redmine core.
+require 'dispatcher'
+
+Dispatcher.to_prepare :redmine_add_user do
+  require_dependency 'issue'
+  # Guards against including the module multiple time (like in tests)
+  # and registering multiple callbacks
+  unless User.included_modules.include? AddUser::Patches::UserPatch
+    User.send(:include, AddUser::Patches::UserPatch)
+  end
+end
+
+
 Redmine::Plugin.register :redmine_add_user do
   author 'Eric Davis'
   url 'https://projects.littlestreamsoftware.com/projects'
