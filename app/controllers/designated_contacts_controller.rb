@@ -21,6 +21,7 @@ class DesignatedContactsController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        Mailer.deliver_account_information(@user, @user.password) if params[:send_information]
         flash[:notice] = l(:notice_successful_create)
         format.html { redirect_to(:controller => 'projects', :action => 'show', :id => @project) }
         format.xml  { render :xml => @user, :status => :created, :location => @user }

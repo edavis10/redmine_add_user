@@ -27,6 +27,7 @@ class DesignatedContactsControllerTest < ActionController::TestCase
 
   context "on POST to :create" do
     setup do
+      Setting.bcc_recipients = '1'
       setup_anonymous_role
       setup_non_member_role
       setup_plugin_configuration
@@ -37,13 +38,20 @@ class DesignatedContactsControllerTest < ActionController::TestCase
         :mail => 'test_new_contact@example.com',
         :firstname => 'John',
         :lastname => 'Doe'
-      }
+      },
+      :send_information => true
+
     end
 
     should_assign_to :user
     should_redirect_to("the project overview") { "/projects/#{@project.to_param}" }
     should_set_the_flash_to(/Successful creation/i)
 
-    should "email the user their account information"
+    should "email the user their account information" do
+      assert_sent_email do |email|
+        email.subject =~ /account activation/ &&
+          email.bcc.include?('test_new_contact@example.com')
+      end
+    end
   end
 end
