@@ -12,6 +12,8 @@ class DesignatedContactsControllerTest < ActionController::TestCase
   context "on GET to :new" do
     setup do
       setup_anonymous_role
+      setup_non_member_role
+      setup_plugin_configuration
       @project = Project.generate!
       generate_user_and_login_for_project(@project)
 
@@ -26,18 +28,22 @@ class DesignatedContactsControllerTest < ActionController::TestCase
   context "on POST to :create" do
     setup do
       setup_anonymous_role
+      setup_non_member_role
+      setup_plugin_configuration
       @project = Project.generate!
       generate_user_and_login_for_project(@project)
 
-      post :create, :user => {}, :project_id => @project
+      post :create, :project_id => @project.to_param, :user => {
+        :mail => 'test_new_contact@example.com',
+        :firstname => 'John',
+        :lastname => 'Doe'
+      }
     end
 
     should_assign_to :user
-    should_redirect_to("the project overview") { "/projects/#{@project}" }
+    should_redirect_to("the project overview") { "/projects/#{@project.to_param}" }
     should_set_the_flash_to(/Successful creation/i)
 
-    should "create a user"
-    should "add the new user as a Member"
     should "email the user their account information"
   end
 end

@@ -1,4 +1,5 @@
 class DesignatedContactsController < ApplicationController
+  unloadable
   before_filter :find_project
   before_filter :authorize
   
@@ -16,12 +17,12 @@ class DesignatedContactsController < ApplicationController
   # POST /projects/:project_id/designated_contacts
   # POST /projects/:project_id/designated_contacts.xml
   def create
-    @user = User.new(params[:designated_contact])
+    @user = User.new_designated_contact(@project, params[:user])
 
     respond_to do |format|
       if @user.save
         flash[:notice] = l(:notice_successful_create)
-        format.html { redirect_to(@user) }
+        format.html { redirect_to(:controller => 'projects', :action => 'show', :id => @project) }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
