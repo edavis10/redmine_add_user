@@ -11,6 +11,9 @@ module AddUser
 
         returning '' do |response|
           response << content_tag(:h3, l(:add_user_text_contacts))
+          if User.current.allowed_to?(:add_designated_contact, context[:project])
+            response << link_to(l(:add_user_text_add_new_designated_contact), {:controller => 'designated_contacts', :action => 'new', :project_id => context[:project]}, :class => 'new-designated-contact')
+          end
           response << content_tag(:ul, selected_users(context[:project]).collect {|user| user_item(user) }, :id => 'designated_contacts')
         end
         

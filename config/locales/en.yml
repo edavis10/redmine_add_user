@@ -4,3 +4,4 @@ en:
   add_user_settings_help: ""
   add_user_missing_roles: "Missing Roles.  Please create at least one first."
   add_user_text_contacts: "Designated Contacts"
+  add_user_text_add_new_designated_contact: "Add New Designated Contact"

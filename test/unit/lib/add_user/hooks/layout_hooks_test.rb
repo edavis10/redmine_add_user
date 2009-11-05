@@ -20,6 +20,8 @@ class AddUser::Hooks::LayoutHooksTest < ActionController::TestCase
   context "#view_layouts_base_sidebar" do
     setup do
       setup_plugin_configuration
+      setup_anonymous_role
+      setup_non_member_role
     end
 
     context "with no project" do
@@ -73,8 +75,29 @@ class AddUser::Hooks::LayoutHooksTest < ActionController::TestCase
         end
       end
 
+      context "for a user without permission to add a user" do
+        setup do
+          @current_user = User.generate_with_protected!
+          User.current = @current_user
+        end
+        
+        should "not render the link to add a new user" do
+          @response.body = hook
+          assert_select "a.new-designated-contact", false
+        end
+      end
+
       context "for a user with permission to add a user" do
-        should "render the link to add a new user"
+        setup do
+          @current_user = User.generate_with_protected!
+          User.current = @current_user
+        end
+        
+        should "render the link to add a new user" do
+          @current_user.expects(:allowed_to?).with(:add_designated_contact, @project).returns(true)
+          @response.body = hook
+          assert_select "a.new-designated-contact"
+        end
       end
     end
   end
