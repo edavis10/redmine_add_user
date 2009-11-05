@@ -17,7 +17,8 @@ A copy of the plugin can be downloaded from {Little Stream Software}[https://pro
 2. Restart your Redmine web servers (e.g. mongrel, thin, mod_rails)
 3. Login as an Administrator
 4. Configure the Permissions for the plugin, under "Designated contacts"
-5. Configure which Roles a new user should recieve on the project, in Administration > Plugins
+5. Configure which Roles a new user should receive on the project, in Administration > Plugins
+6. Enable the "Designated contacts" Project Module to each project you would like to use it in, in Project > Settings > Modules
 
 == Usage
 
