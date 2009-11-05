@@ -1,7 +1,7 @@
 # English strings go here for Rails i18n
 en:
   add_user_text_settings_configuration: "Configuration"
-  add_user_settings_help: ""
+  add_user_settings_help: "Select which Roles a new Designated Contact should receive when they are created."
   add_user_missing_roles: "Missing Roles.  Please create at least one first."
   add_user_text_contacts: "Designated Contacts"
   add_user_text_add_new_designated_contact: "Add New Designated Contact"

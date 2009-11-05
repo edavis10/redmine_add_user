@@ -4,23 +4,24 @@ Add User is a plugin that will allow project Members to create new users without
 
 == Features
 
-* __FEATURE__
+* List of users on the sidebar with their Roles
+* Add a new user giving them membership on a project, without requiring Administrator access
 
 == Getting the plugin
 
-A copy of the plugin can be downloaded from {Little Stream Software}[https://projects.littlestreamsoftware.com/projects/___XXX___/files] or from {GitHub}[http://github.com/edavis10/___XXX___]
-
+A copy of the plugin can be downloaded from {Little Stream Software}[https://projects.littlestreamsoftware.com/projects/___XXX___/files] or from {GitHub}[http://github.com/edavis10/redmine_add_user]
 
 == Installation and Setup
 
 1. Follow the Redmine plugin installation steps at: http://www.redmine.org/wiki/redmine/Plugins 
-2. Run the plugin migrations +rake db:migrate_plugins+
-3. Restart your Redmine web servers (e.g. mongrel, thin, mod_rails)
-4. __XXX__
+2. Restart your Redmine web servers (e.g. mongrel, thin, mod_rails)
+3. Login as an Administrator
+4. Configure the Permissions for the plugin, under "Designated contacts"
+5. Configure which Roles a new user should recieve on the project, in Administration > Plugins
 
 == Usage
 
-__XXX__
+The plugin will automatically add a list of members to the Redmine sidebar.  Users with the "Add designated contact" permission will also have a link there to add a new user.  Once added, a new user will receive a signup email with a random password and can login to the project.
 
 == License
 
