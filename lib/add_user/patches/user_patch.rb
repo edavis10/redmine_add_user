@@ -15,6 +15,9 @@ module AddUser
           u = new(user_attributes)
           u.login = u.mail
 
+          u.password = ActiveSupport::SecureRandom.hex(10)
+          u.password_confirmation = u.password
+
           if Setting.plugin_redmine_add_user['roles']
             u.members << Member.new(:project => project,
                                     :roles => Role.find_all_by_id(Setting.plugin_redmine_add_user['roles']))

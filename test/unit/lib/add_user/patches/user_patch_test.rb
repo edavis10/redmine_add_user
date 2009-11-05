@@ -30,6 +30,13 @@ class AddUser::Patches::UserPatchTest < ActiveSupport::TestCase
       assert_equal 'abe.gabby@gmail.com', user.login
     end
 
+    should "set the password to a secure random value" do
+      user = User.new_designated_contact(@project, valid_user_attributes)
+
+      assert user.password.present?
+      assert user.password_confirmation.present?
+    end
+
     should "give the user membership to the project, using the configured roles" do
       user = User.new_designated_contact(@project, valid_user_attributes)
 
