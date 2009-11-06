@@ -39,12 +39,13 @@ class DesignatedContactsControllerTest < ActionController::TestCase
         :firstname => 'John',
         :lastname => 'Doe'
       },
-      :send_information => true
+      :send_information => true,
+      :back_url => "/projects/#{@project.to_param}/issues"
 
     end
 
     should_assign_to :user
-    should_redirect_to("the project overview") { "/projects/#{@project.to_param}" }
+    should_redirect_to("the back url") { "/projects/#{@project.to_param}/issues" }
     should_set_the_flash_to(/Successful creation/i)
 
     should "email the user their account information" do
